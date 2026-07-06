@@ -5,7 +5,7 @@ import Octicon from "../components/Octicon.vue";
 </script>
 
 <template>
-  <div class="page-grid admin-grid">
+  <div class="page-grid admin-grid admin-page">
     <UiCard class="admin-card" title="用户管理" desc="管理学生、教师、管理员和演示账号的角色与状态。" tag="Accounts">
       <div class="admin-card__body">
         <div class="admin-toolbar">

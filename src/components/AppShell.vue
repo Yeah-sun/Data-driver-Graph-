@@ -10,6 +10,9 @@ const route = useRoute();
 const router = useRouter();
 const isSidebarOpen = ref(false);
 const isSidebarCollapsed = ref(false);
+const isSettingsOpen = ref(false);
+const agentEndpoint = ref("https://api.example.com/v1/agent/chat");
+const agentApiKey = ref("");
 const session = computed(() => getSession() || {});
 const pageTitle = computed(() => route.meta.title || "工作台");
 const pageKicker = computed(() => route.meta.kicker || "产品原型");
@@ -57,6 +60,14 @@ function toggleSidebar() {
   isSidebarOpen.value = false;
 }
 
+function openSettings() {
+  isSettingsOpen.value = true;
+}
+
+function closeSettings() {
+  isSettingsOpen.value = false;
+}
+
 watch(
   () => route.fullPath,
   () => {
@@ -101,18 +112,23 @@ watch(
         </RouterLink>
       </nav>
 
-      <div class="repo-card">
+      <a class="repo-card" href="https://github.com/Yeah-sun/Data-driver-Graph-" target="_blank" rel="noreferrer">
         <div class="repo-card__head">
-          <Octicon name="repoIcon" />
-          <strong>UI branch</strong>
+          <Octicon name="githubIcon" />
+          <strong>Yeah-sun/Data-driver-Graph-</strong>
         </div>
-        <p>Primer 风格基础，图谱产品语言增强。</p>
-        <div class="mini-row">
-          <span></span>
-          <span></span>
-          <span></span>
+        <p>GitHub 项目源码地址，前端原型、接口文档和图谱交互统一版本管理。</p>
+        <div class="repo-card__meta">
+          <span>
+            <Octicon name="gitBranchIcon" />
+            版本控制
+          </span>
+          <span>
+            <Octicon name="repoIcon" />
+            源码仓库
+          </span>
         </div>
-      </div>
+      </a>
     </aside>
 
     <main class="main-panel">
@@ -134,13 +150,13 @@ watch(
         <div class="notice-strip">
           <span v-for="notice in notices" :key="notice">{{ notice }}</span>
         </div>
-        <div class="user-chip">
+        <button class="user-chip user-chip--button" type="button" aria-label="打开用户配置" @click="openSettings">
           <span class="avatar">{{ displayName.slice(0, 1) }}</span>
           <div>
             <strong>{{ displayName }}</strong>
-            <small>{{ displayRole }} · {{ session.school || "示例大学" }}</small>
+            <small>{{ displayRole }}</small>
           </div>
-        </div>
+        </button>
         <button class="btn btn-sm" @click="logout">
           <Octicon name="signOutIcon" />
           退出
@@ -166,6 +182,59 @@ watch(
 
       <RouterView />
     </main>
+
+    <Teleport to="body">
+      <div v-if="isSettingsOpen" class="settings-modal-layer">
+        <button class="settings-modal-backdrop" type="button" aria-label="关闭用户配置" @click="closeSettings"></button>
+        <section class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+          <header class="settings-modal__head">
+            <div>
+              <p>Account settings</p>
+              <h2 id="settings-title">用户配置</h2>
+            </div>
+            <button class="btn btn-sm" type="button" @click="closeSettings">
+              <Octicon name="xIcon" />
+              关闭
+            </button>
+          </header>
+
+          <div class="settings-profile">
+            <span class="avatar">{{ displayName.slice(0, 1) }}</span>
+            <div>
+              <strong>{{ displayName }}</strong>
+              <small>{{ displayRole }} · {{ session.school || "示例大学" }}</small>
+            </div>
+          </div>
+
+          <div class="settings-grid">
+            <label>
+              <span>账号角色</span>
+              <input :value="displayRole" readonly />
+            </label>
+            <label>
+              <span>所属单位</span>
+              <input :value="session.school || '示例大学'" readonly />
+            </label>
+            <label class="settings-grid__wide">
+              <span>AI Agent 配置地址</span>
+              <input v-model="agentEndpoint" placeholder="https://api.example.com/v1/agent/chat" />
+            </label>
+            <label class="settings-grid__wide">
+              <span>API Key</span>
+              <input v-model="agentApiKey" type="password" placeholder="sk-..." autocomplete="off" />
+            </label>
+          </div>
+
+          <footer class="settings-modal__foot">
+            <span>当前为前端 mock 配置，不会提交到服务器。</span>
+            <button class="btn btn-primary" type="button" @click="closeSettings">
+              <Octicon name="checkIcon" />
+              保存配置
+            </button>
+          </footer>
+        </section>
+      </div>
+    </Teleport>
 
     <AiAgentDrawer v-if="!isAdmin" />
   </div>

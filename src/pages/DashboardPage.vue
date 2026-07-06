@@ -6,10 +6,17 @@ import Octicon from "../components/Octicon.vue";
 import ProgressLine from "../components/ProgressLine.vue";
 
 const router = useRouter();
+
+const statIcons = {
+  success: "targetIcon",
+  accent: "telescopeIcon",
+  warning: "alertIcon",
+  neutral: "databaseIcon"
+};
 </script>
 
 <template>
-  <div class="page-grid">
+  <div class="page-grid dashboard-page">
     <section class="command-strip">
       <div>
         <strong>下一步建议</strong>
@@ -23,7 +30,12 @@ const router = useRouter();
 
     <section class="stats-grid">
       <article v-for="stat in dashboard.stats" :key="stat.label" class="stat-tile" :class="`stat-tile--${stat.tone}`">
-        <span>{{ stat.label }}</span>
+        <div class="stat-tile__head">
+          <span>{{ stat.label }}</span>
+          <i>
+            <Octicon :name="statIcons[stat.tone] || 'graphIcon'" />
+          </i>
+        </div>
         <strong>{{ stat.value }}</strong>
         <small>{{ stat.detail }}</small>
       </article>

@@ -27,6 +27,7 @@ const iconAliases = {
   fileIcon: "file",
   filterIcon: "filter",
   gitBranchIcon: "git-branch",
+  githubIcon: "mark-github",
   graphIcon: "graph",
   homeIcon: "home",
   issueOpenedIcon: "issue-opened",

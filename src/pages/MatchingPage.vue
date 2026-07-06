@@ -9,17 +9,27 @@ const router = useRouter();
 </script>
 
 <template>
-  <div class="page-grid matching-grid">
+  <div class="page-grid matching-grid matching-page">
     <UiCard title="综合评分" desc="给出明确结果，同时保留解释入口。" tag="Report">
       <div class="score-panel">
-        <div class="score-ring">
-          <strong>{{ matching.score }}</strong>
-          <span>部分匹配</span>
+        <div class="score-summary">
+          <div class="score-ring">
+            <strong>{{ matching.score }}</strong>
+            <span>部分匹配</span>
+          </div>
+          <div class="score-copy">
+            <span class="Label Label--accent">建议进入差距修复</span>
+            <strong>基础能力可覆盖目标岗位，仍需补齐工程化经验。</strong>
+            <p>系统已识别核心命中项和主要缺口，可继续生成可执行学习路径。</p>
+          </div>
         </div>
-        <button class="btn btn-primary" @click="router.push('/learning')">
-          <Octicon name="arrowRightIcon" />
-          查看差距路径
-        </button>
+        <div class="score-actions">
+          <span>下一步：生成 6 周差距行动计划</span>
+          <button class="btn btn-primary" @click="router.push('/learning')">
+            <Octicon name="arrowRightIcon" />
+            查看差距路径
+          </button>
+        </div>
       </div>
     </UiCard>
 

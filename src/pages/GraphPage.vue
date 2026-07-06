@@ -366,11 +366,11 @@ function renderGraph() {
           color: "#ffffff",
           width: 94,
           height: 94,
-          "background-color": "#0969da",
-          "border-color": "#0969da",
+          "background-color": "#bc4c00",
+          "border-color": "#8a3700",
           "font-size": 13,
           "text-max-width": 82,
-          "shadow-color": "#0969da",
+          "shadow-color": "#bc4c00",
           "shadow-opacity": 0.28
         }
       },
@@ -400,9 +400,9 @@ function renderGraph() {
         style: {
           opacity: 1,
           "border-width": 5,
-          "border-color": "#0969da",
+          "border-color": "#bc4c00",
           "shadow-blur": 28,
-          "shadow-color": "#0969da",
+          "shadow-color": "#bc4c00",
           "shadow-opacity": 0.28
         }
       },
@@ -422,7 +422,7 @@ function renderGraph() {
         style: {
           opacity: 1,
           "border-width": 3,
-          "border-color": "#0969da",
+          "border-color": "#bc4c00",
           "shadow-opacity": 0.2
         }
       },
@@ -430,9 +430,9 @@ function renderGraph() {
         selector: "node:selected",
         style: {
           "border-width": 4,
-          "border-color": "#0969da",
+          "border-color": "#bc4c00",
           "shadow-blur": 28,
-          "shadow-color": "#0969da",
+          "shadow-color": "#bc4c00",
           "shadow-opacity": 0.34,
           "shadow-offset-x": 0,
           "shadow-offset-y": 10
@@ -466,8 +466,8 @@ function renderGraph() {
       {
         selector: "edge.is-active",
         style: {
-          "line-color": "#0969da",
-          "target-arrow-color": "#0969da",
+          "line-color": "#bc4c00",
+          "target-arrow-color": "#bc4c00",
           width: 3,
           opacity: 0.96,
           "text-opacity": 1,
@@ -629,7 +629,13 @@ onBeforeUnmount(() => {
 
     <UiCard title="节点说明" desc="点击节点后展示 Neo4j 属性和关联关系。" tag="Selected">
       <div class="detail-block">
-        <h3>{{ selectedNode?.name }}</h3>
+        <div class="node-inspector-title">
+          <h3>{{ selectedNode?.name }}</h3>
+          <button class="btn btn-sm btn-primary" type="button" @click="expandSelectedNode">
+            <Octicon name="gitBranchIcon" />
+            展开子技能
+          </button>
+        </div>
         <p>{{ selectedNode?.summary }}</p>
         <p>
           根节点：{{ rootNode?.name }}，当前节点有 {{ selectedRelations.length }} 条直接关系，
@@ -642,10 +648,6 @@ onBeforeUnmount(() => {
           {{ nodeById(relationship.source === selectedNode?.id ? relationship.target : relationship.source)?.name }}
         </span>
       </div>
-      <button class="btn btn-primary" type="button" @click="expandSelectedNode">
-        <Octicon name="gitBranchIcon" />
-        展开子技能
-      </button>
     </UiCard>
 
     <UiCard title="版本演化" desc="承接动态演化分析的评分点。" tag="Timeline">

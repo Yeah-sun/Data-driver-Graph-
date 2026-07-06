@@ -15,6 +15,8 @@ defineProps({
       </div>
       <span v-if="tag" class="Label Label--secondary">{{ tag }}</span>
     </header>
-    <slot />
+    <div class="ui-card__body">
+      <slot />
+    </div>
   </section>
 </template>

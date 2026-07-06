@@ -59,6 +59,31 @@ export const resume = {
     { title: "Airflow", detail: "仅从调度平台描述中推断，建议确认" },
     { title: "指标体系设计", detail: "证据不足，可能应降级为了解" },
     { title: "Tableau", detail: "项目证据较强，可考虑提升熟练度" }
+  ],
+  graph: {
+    root: "张林简历画像",
+    nodes: [
+      { id: "candidate", label: "张林", type: "candidate", x: 50, y: 48 },
+      { id: "python", label: "Python", type: "skill", x: 20, y: 24 },
+      { id: "sql", label: "SQL", type: "skill", x: 80, y: 24 },
+      { id: "pandas", label: "Pandas", type: "skill", x: 18, y: 72 },
+      { id: "metric", label: "指标分析", type: "skill", x: 82, y: 72 },
+      { id: "project", label: "用户留存项目", type: "evidence", x: 50, y: 84 },
+      { id: "airflow", label: "Airflow", type: "risk", x: 50, y: 16 }
+    ],
+    relationships: [
+      { source: "candidate", target: "python", label: "熟练" },
+      { source: "candidate", target: "sql", label: "熟练" },
+      { source: "candidate", target: "pandas", label: "熟练" },
+      { source: "candidate", target: "metric", label: "实践" },
+      { source: "candidate", target: "project", label: "证据" },
+      { source: "candidate", target: "airflow", label: "待复核" }
+    ]
+  },
+  graphStats: [
+    { label: "技能节点", value: "5" },
+    { label: "项目证据", value: "1" },
+    { label: "待复核关系", value: "1" }
   ]
 };
 
@@ -96,9 +121,30 @@ export const learning = {
     { title: "实验分析", detail: "学习 A/B 测试、样本分组与结果解释" }
   ],
   plan: [
-    { week: "第 1-2 周", title: "业务分析基本功", detail: "复盘一份业务案例，输出指标树和分析结论" },
-    { week: "第 3-4 周", title: "数据流程工程化", detail: "完成一个调度任务 demo 并记录异常处理" },
-    { week: "第 5-6 周", title: "作品集强化", detail: "把项目改写成面试可讲述的业务故事" }
+    {
+      week: "第 1-2 周",
+      title: "业务分析基本功",
+      detail: "复盘一份业务案例，输出指标树和分析结论",
+      deliverable: "1 份指标树说明文档",
+      acceptance: "能解释指标口径、业务目标和分析结论",
+      workload: "每周 5 小时"
+    },
+    {
+      week: "第 3-4 周",
+      title: "数据流程工程化",
+      detail: "完成一个调度任务 demo 并记录异常处理",
+      deliverable: "1 个 Airflow DAG demo",
+      acceptance: "包含依赖、失败重试和运行日志截图",
+      workload: "每周 6 小时"
+    },
+    {
+      week: "第 5-6 周",
+      title: "作品集强化",
+      detail: "把项目改写成面试可讲述的业务故事",
+      deliverable: "1 份项目复盘和面试讲稿",
+      acceptance: "能围绕问题、方法、结果、反思完整讲述",
+      workload: "每周 4 小时"
+    }
   ]
 };
 
